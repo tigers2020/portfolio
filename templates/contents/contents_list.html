@@ -1,9 +1,11 @@
 {% extends 'parts/base.html' %}
 
 {% block main %}
-  {% for contents in contents_list %}
-    <div class="container mt-5" id="{{ contents.id }}-{{ contents.slug }}">
-      <div class="card card-cascade wider reverse">
+<div class="container mt-5 pt-5">
+<div class="row">
+  {% for contents in essay_list %}
+    <div class="col-md-4">
+      <div class="card">
         <div class="view view-cascade overlay">
           <div class="carousel slide" data-ride="carousel" id="carousel-header_{{ contents.id }}">
             <div class="carousel-inner">
@@ -26,12 +28,18 @@
             </a>
           </div>
         </div>
-        <div class="card-body card-body-cascade">
-          <h4 class="card-title scholar-primary-color text-center"><strong>{{ contents.title }}</strong></h4>
-          <div class="card-text">{{ contents.contents|safe }}</div>
+        <div class="card-body">
+          <h4 class="card-title"><a>{{ contents.title }}</a></h4>
+          <p class="card-text">
+            {{ contents.contents|safe|truncatechars:255 }}
+
+          </p>
+          <a href="{% url "category_view" contents.pk %}" class="btn btn-primary">Read More</a>
         </div>
       </div>
     </div>
   {% endfor %}
+</div>
+</div>
 
 {% endblock %}

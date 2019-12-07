@@ -10,9 +10,9 @@ class CategoryModelAdmin(admin.ModelAdmin):
 
 
 class ContentModelAdmin(admin.ModelAdmin):
-    list_display = ('title', 'category', 'created_date', 'modified_date', 'published', 'published_date')
+    list_display = ('title', 'category', 'created_date', 'modified_date', 'main_text', 'published_date')
     prepopulated_fields = {"slug": ('title',)}
-    list_editable = ['published']
+    list_editable = ['main_text']
     search_fields = ['title', ]
 
 

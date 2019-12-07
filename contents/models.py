@@ -34,11 +34,11 @@ class Contents(models.Model):
     title = models.CharField(max_length=255)
     category = models.ForeignKey(Category, related_name='category', on_delete=models.CASCADE)
     slug = models.SlugField(unique=True, allow_unicode=True)
-    published = models.BooleanField(default=False)
+    main_text = models.BooleanField(default=False)
     published_date = models.DateTimeField(blank=True, null=True)
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(blank=True, null=True)
-    images = models.ManyToManyField(Images)
+    images = models.ManyToManyField(Images, blank=True)
     contents = RichTextField(blank=True, default='')
 
     def __str__(self):

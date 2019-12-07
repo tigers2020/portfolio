@@ -52,14 +52,14 @@
               class="sr-only">(current)</span></a>
           <!--Menu-->
           <div class="dropdown-menu special-color" aria-labelledby="dropdownMenu1">
-                {% for contents in contents_list %}
+                {% for contents in essay_list %}
                   {% if forloop.first %}
                     <div class="sub-menu">
                     {#                    <h6 CLASS="sub-title text-uppercase font-weight-bold white-text">{{ project.year }}</h6>#}
                     <ul class="list-unstyled">
                   {% endif %}
                 <a class="dropdown-item waves-effect waves-light text-white"
-                   href="#{{ contents.id }}-{{ contents.slug }}"
+                   href="{% url 'category_view' contents.pk %}"
                    data-offset="{% if forloop.first %}130{% else %}80{% endif %}">{{ contents.title }}</a>
                 {% if forloop.counter|divisibleby:4 %}
                   </ul>
@@ -83,7 +83,7 @@
   </div>
 </nav>
 
-<main class="h-100">
+<main class="min-vh-100">
   {% block main %}
   {% endblock %}
 </main>

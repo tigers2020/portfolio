@@ -17,13 +17,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
-from .views import IndexView
+
+from contents.views import CategoryView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', IndexView.as_view(), name='index_view'),
-    path('contents/', include("contents.urls"), name='contents'),
-
+    path('<int:pk>', CategoryView.as_view(), name="category_view"),
 ]
 
 if settings.DEBUG:
