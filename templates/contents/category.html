@@ -1,0 +1,59 @@
+{% extends 'parts/base.html' %}
+
+{% block main %}
+  <div class="container mt-5 pt-5">
+    <ul class="nav nav-tabs nav-justified md-tabs indigo" id="essayTabJust" role="tablist">
+      {% for contents in contents_list %}
+        <li class="nav-item">
+          <a class="nav-link {% if contents.main_text %}active{% endif %}" id="tab_{{ contents.id }}" data-toggle="tab"
+             href="#content_{{ contents.id }}" role="tab" aria-controls="content_{{ contents.id }}"
+             aria-selected="true">
+            {{ contents.title }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+    <div class="tab-content card pt-5" id="essayTabContentJust">
+      {% for contents in contents_list %}
+        <div class="tab-pane fade show {% if contents.main_text %}active{% endif %}" id="content_{{ contents.id }}"
+             role="tabpanel" aria-labelledby="tab_{{ contents.id }}">
+          <div class="card">
+            <div class="view view-cascade overlay">
+              <div class="carousel slide" data-ride="carousel" id="carousel-header_{{ contents.id }}">
+                <div class="carousel-inner">
+                  {% load sorl_thumbnail %}
+                  {% for image in contents.images.all %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                      {% thumbnail image.image "1920x1080" crop="center" as im %}
+                        <img class="d-block w-100" src="{{ im.url }}" alt="{{ image.title }}"/>
+                      {% endthumbnail %}
+                    </div>
+                  {% endfor %}
+                </div>
+                <a class="carousel-control-prev" href="#carousel-header_{{ contents.id }}" role="button"
+                   data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carousel-header_{{ contents.id }}" role="button"
+                   data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </div>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title"><a>{{ contents.title }}</a></h4>
+              <p class="card-text">
+                {{ contents.contents|safe }}
+              </p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+
+
+{% endblock %}
